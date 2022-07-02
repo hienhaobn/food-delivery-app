@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity, Image } from "react-native";
+import { Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { FONTS, COLORS } from "../constants";
 
 const TextIconButton = ({
@@ -7,6 +7,7 @@ const TextIconButton = ({
   label,
   labelStyle,
   icon,
+  iconPosition,
   iconStyle,
   onPress,
 }) => {
@@ -20,6 +21,15 @@ const TextIconButton = ({
       }}
       onPress={onPress}
     >
+      {iconPosition === "LEFT" && (
+        <Image
+          source={icon}
+          style={{
+            ...styles.image,
+            ...iconStyle,
+          }}
+        />
+      )}
       <Text
         style={{
           ...FONTS.body3,
@@ -29,18 +39,26 @@ const TextIconButton = ({
         {label}
       </Text>
 
-      <Image
-        source={icon}
-        style={{
-          marginLeft: 5,
-          width: 20,
-          height: 20,
-          tintColor: COLORS.black,
-          ...iconStyle,
-        }}
-      />
+      {iconPosition === "RIGHT" && (
+        <Image
+          source={icon}
+          style={{
+            ...styles.image,
+            ...iconStyle,
+          }}
+        />
+      )}
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  image: {
+    marginLeft: 5,
+    width: 20,
+    height: 20,
+    tintColor: COLORS.black,
+  },
+});
 
 export default TextIconButton;
